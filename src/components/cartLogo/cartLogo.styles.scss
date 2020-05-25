@@ -1,0 +1,16 @@
+span{
+    position: relative;
+
+    i {
+        font-size: 38px;
+    }
+
+    span {
+        position: absolute;
+        font-size: 14px;
+        font-weight: 700;
+        top: 1px; 
+        left: 13px;
+        color: #000;
+    }
+}

@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
 
-function App() {
+import Header from "./pages/header/header.component";
+import Homepage from './pages/homepage/homepage.component';
+import ContactUs from "./pages/contactUs/contactUs.component";
+import Shop from "./pages/shop/shop.component";
+import Checkout from "./pages/checkout/checkout.component";
+import ProductForm from "./pages/forms/productForm/productFrom.component";
+
+import "./App.css";
+import { Route } from "react-router-dom";
+
+function App({ user }) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Route exact path="/" component={Homepage} />
+      <Route exact path="/shop" component={Shop} />
+      <Route exact path="/contactus" component={ContactUs} />
+      <Route exact path="/checkout" component={Checkout} />
+      <Route exact path="/product" component={ProductForm} />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(App);

@@ -1,0 +1,46 @@
+.cart-item{
+    display: flex;
+    flex-flow: row  wrap;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 10px 0px;
+
+    &-image {
+        width: 25%;
+        overflow: hidden;
+    }
+
+    &-code {
+        width: 20%;
+        overflow: hidden;
+        text-align: left;
+    }
+
+    &-quantity {
+        width: 20%;
+        overflow: hidden;
+        display: flex;
+        flex-flow: row  wrap;
+        justify-content: space-between;
+        align-items: center;    
+    }
+
+    &-price {
+        width: 20%;
+        overflow: hidden;
+        text-align: right;
+    }
+
+    &-remove {
+        width: 7%;
+        overflow: hidden;
+        text-align: right;
+        cursor: pointer;
+    }
+}
+
+.change-qty-btn{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}

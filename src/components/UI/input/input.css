@@ -1,0 +1,93 @@
+.group {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 15px 0px !important;
+}
+
+.group label {
+  display: block;
+  margin-bottom: 10px;
+  width: 100%;
+  font-weight: 700;
+}
+
+.group input {
+  box-sizing: border-box;
+  padding: 5px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Roboto Condensed", sans-serif;
+  width: 100%;
+  border: 1px solid #333;
+}
+
+.group textarea {
+  box-sizing: border-box;
+  padding: 7px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Roboto Condensed", sans-serif;
+  width: 100%;
+  border: 1px solid #333;
+}
+
+.group select {
+  box-sizing: border-box;
+  padding: 7px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Roboto Condensed", sans-serif;
+  width: 100%;
+  border: 1px solid #333;
+}
+
+.input-field {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+.input-field input,
+.input-field textarea {
+  width: 100%;
+  padding: 10px 10px 10px 5px;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #666;
+  font-size: 16px;
+  color: #000;
+  font-weight: 700;
+  resize: none;
+}
+.input-field label {
+  position: absolute;
+  top: 0px;
+  left: 5px;
+  padding: 5px 0;
+  pointer-events: none;
+  font-size: 18px;
+  color: #000;
+  font-weight: 500;
+  transition: 0.5s;
+}
+.input-field input:focus + label,
+.input-field textarea:focus + label,
+.input-field input:valid + label,
+.input-field textarea:valid + label {
+  top: -27px;
+  font-size: 14px;
+  padding: 2px 5px;
+  background: #fff;
+  border: 1px solid #333;
+  color: #000;
+  font-weight: 500;
+}
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

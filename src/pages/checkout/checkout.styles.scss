@@ -1,0 +1,38 @@
+.checkout {
+  width: 60%;
+  margin: auto;
+}
+
+.checkout-form {
+  width: 50%;
+  float: left;
+}
+
+.checkout-cart {
+  width: 50%;
+  float: right;
+  text-align: center;
+}
+
+
+.checkout-confirm {
+  min-width: 165px;
+    width: auto;
+    height: 50px;
+    letter-spacing: 0.5px;
+    line-height: 50px;
+    padding: 0 35px 0 35px;
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed', sans-serif;
+    border: none;
+    cursor: pointer;
+
+  &:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+}

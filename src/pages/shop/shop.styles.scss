@@ -1,0 +1,19 @@
+.shop{
+    width: 80%;
+    margin: auto;
+}
+.product-type-container{
+    width: 100%;
+}
+
+.product-type{
+    width: 100%;
+
+    &-name{
+        width: 100%;
+
+        h1{
+            font-weight: 700;
+        }
+    }
+}
