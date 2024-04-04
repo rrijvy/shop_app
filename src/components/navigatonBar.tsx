@@ -6,10 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import CartDropdown from "./cartDropdown";
-import Storage from "@/helpers/storage";
 
 const NavigatonBar = () => {
-  const [showCartPopover, setCartPopoverStatus] = useState(Storage.ShowCartPopover || false);
+  const [showCartPopover, setCartPopoverStatus] = useState(false);
 
   const changeCartPopoverStatus = () => {
     setCartPopoverStatus(!showCartPopover);

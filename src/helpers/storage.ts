@@ -24,5 +24,4 @@ class StorageImpl {
   }
 }
 
-const Storage = new StorageImpl();
 export default Storage;

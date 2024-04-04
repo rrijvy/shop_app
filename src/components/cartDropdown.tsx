@@ -4,9 +4,11 @@ import Link from "next/link";
 import CartItem from "./cartItem";
 import { ICartItem } from "@/models/ICartItem";
 
-const CartDropdown = (props: { cartItems: Array<ICartItem>; show: boolean }) => {
+type Props = { cartItems: Array<ICartItem>; show: boolean };
+
+const CartDropdown = (props: Props) => {
   if (!props.show) return null;
-  
+
   return (
     <div className="cart-dropdown-container">
       <div className="cart-dropdown-items">
