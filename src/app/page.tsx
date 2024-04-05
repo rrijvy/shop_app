@@ -1,14 +1,10 @@
 import MenuItem from "@/components/menuItem";
 import NavigatonBar from "@/components/navigatonBar";
-import { ICategory } from "@/models/ICategory";
+import ProductCategoryCollection from "@/libs/mongo/collections/productCategory";
 
-export default function Home() {
-  const productCategories: Array<ICategory> = [
-    { categoryId: "1", name: "Shirt" },
-    { categoryId: "2", name: "Pant" },
-    { categoryId: "3", name: "T-Shirt" },
-    { categoryId: "4", name: "Panjabi" },
-  ];
+export default async function Home() {
+  const categoryCollection = new ProductCategoryCollection();
+  const productCategories = await categoryCollection.all();
 
   return (
     <>

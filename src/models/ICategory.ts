@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export interface ICategory {
-  categoryId: string;
+  categoryId?: string;
   imageUrl?: string;
   name?: string;
 }

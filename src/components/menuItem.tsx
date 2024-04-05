@@ -7,7 +7,7 @@ type Props = {
 };
 
 const MenuItem = (props: Props) => {
-  let style = { backgroundImage: `url(${props.category.imageUrl})` };
+  let style = { backgroundImage: `url("./images/mens-clothing.jpg")`, backgroundSize: "cover" };
 
   return (
     <div className="menu-item" style={style}>
