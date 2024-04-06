@@ -5,6 +5,7 @@ import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ICategory } from "@/models/ICategory";
 import Modal from "@/components/ui/modal";
+import { serialize } from "object-to-formdata";
 
 const ProductCategoriesPage = () => {
   const [productCategories, setProductCategories] = useState<Array<ICategory>>([]);
@@ -30,10 +31,10 @@ const ProductCategoriesPage = () => {
     e.preventDefault();
     if (!selectedProductCategory) return;
     if (selectedProductCategory.categoryId) {
+      const formData = serialize(selectedProductCategory, { indices: true, nullsAsUndefineds: true });
       fetch(`http://localhost:3000/api/product-categories/${selectedProductCategory.categoryId}`, {
         method: "put",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(selectedProductCategory),
+        body: formData,
       })
         .then((res) => {
           if (res.ok) return res.text();
@@ -47,10 +48,10 @@ const ProductCategoriesPage = () => {
           }
         });
     } else {
+      const formData = serialize(selectedProductCategory, { indices: true, nullsAsUndefineds: true });
       fetch("http://localhost:3000/api/product-categories", {
         method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(selectedProductCategory),
+        body: formData,
       })
         .then((res) => {
           if (res.ok) return res.text();
@@ -157,6 +158,7 @@ const ProductCategoriesPage = () => {
               className="block w-full bg-gray-200 text-gray-700 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white"
               type="file"
               placeholder="Image"
+              onChange={(e) => selectProductCategory({ ...selectedProductCategory, image: e.target.files?.[0] })}
             />
           </div>
           <div className="w-full px-3 mb-6">

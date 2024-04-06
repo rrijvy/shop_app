@@ -1,5 +1,7 @@
 import ProductCategoryCollection from "@/libs/mongo/collections/productCategory";
 import { ICategory } from "@/models/ICategory";
+import { resolve } from "path";
+import { writeFile } from "fs/promises";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
@@ -14,7 +16,19 @@ export async function GET(request: Request, param: Param) {
 }
 
 export async function PUT(request: Request, param: Param) {
-  const body = (await request.json()) as unknown as ICategory;
+  const formData = await request.formData();
+  const imageFile = formData.get("image") as unknown as File;
+  let imagePath = "";
+  if (imageFile) {
+    const bytes = await imageFile.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    imagePath = resolve(process.cwd(), "public", "images", imageFile.name);
+    await writeFile(imagePath, buffer);
+  }
+  const body: ICategory = {
+    name: formData.get("name")?.toString(),
+    imageUrl: `.${imagePath.split("public")[1]}`.replace(/\\/g, "/"),
+  };
   const categoryCollection = new ProductCategoryCollection();
   const result = await categoryCollection.update(new ObjectId(param.params.id), body);
   if (result.modifiedCount > 0) {

@@ -7,13 +7,16 @@ type Props = {
 };
 
 const MenuItem = (props: Props) => {
-  let style = { backgroundImage: `url("./images/mens-clothing.jpg")`, backgroundSize: "cover" };
+  let style = {
+    backgroundImage: `url(${props.category.imageUrl ? props.category.imageUrl : "./images/mens-clothing.jpg"})`,
+    backgroundSize: "cover",
+  };
 
   return (
     <div className="menu-item" style={style}>
-      <div className="content">
-        <h1 className="title">{props.category.name}</h1>
-        <span className="subtitle">SHOP NOW</span>
+      <div className="p-2 flex flex-col items-center justify-center m-auto w-1/2 border border-slate-700 bg-opacity-60 bg-stone-200 hover:bg-white">
+        <p className="text-2xl font-bold">{props.category.name}</p>
+        <p className="text-xl font-semibold">SHOP NOW</p>
       </div>
     </div>
   );
