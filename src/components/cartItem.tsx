@@ -12,7 +12,7 @@ type Props = {
 const CartItem = (props: Props) => {
   return (
     <div className="cart-item">
-      <div className="cart-item-image">{props.item?.imageLink}</div>
+      <div className="cart-item-image">{props.item?.imageSrc}</div>
       <div className="cart-item-code">{props.item?.productCode}</div>
       <div className="cart-item-quantity">
         <button className="change-qty-btn" onClick={() => props.decreaseQuantity(props.item)}>

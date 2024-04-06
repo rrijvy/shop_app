@@ -1,5 +1,25 @@
 $navbar_height: 70px;
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 header {
   width: 100%;
   height: $navbar_height;
@@ -167,14 +187,6 @@ a {
   -webkit-box-shadow: inset -1px -1px 40px 3px rgba(0, 0, 0, 0.35);
   -moz-box-shadow: inset -1px -1px 40px 3px rgba(0, 0, 0, 0.35);
   box-shadow: inset -1px -1px 40px 3px rgba(0, 0, 0, 0.35);
-
-  .content {
-    border: 1px solid #000;
-    width: 50%;
-    margin: auto;
-    padding-bottom: 20px;
-    background-color: #bdbdbdd1;
-  }
 }
 
 .homepage {
@@ -188,4 +200,9 @@ a {
     justify-content: space-between;
     align-items: center;
   }
+}
+
+.shop {
+  width: 95%;
+  margin: auto;
 }

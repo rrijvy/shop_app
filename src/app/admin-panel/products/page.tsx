@@ -1,48 +1,43 @@
 "use client";
 
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useState } from "react";
+import { IProduct } from "@/models/IProduct";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ICategory } from "@/models/ICategory";
 import { serialize } from "object-to-formdata";
-import Modal from "@/components/ui/modal";
 import Checkbox from "@/components/ui/checkbox";
+import Modal from "@/components/ui/modal";
 import FormInput from "@/components/formInput";
 
-const ProductCategoriesPage = () => {
-  const [productCategories, setProductCategories] = useState<Array<ICategory>>([]);
-  const [selectedProductCategory, selectProductCategory] = useState<ICategory>();
+const ProductsPage = () => {
+  const [products, setProducts] = useState<Array<IProduct>>([]);
+  const [selectedProduct, selectProduct] = useState<IProduct>();
   const [showCreateDialog, setCreateDialogStatus] = useState<boolean>(false);
-  useEffect(() => {
-    fetch("http://localhost:3000/api/product-categories", { method: "get" })
-      .then((res) => res.json())
-      .then((obj) => setProductCategories(obj));
-  }, []);
   const openCreateItemDialog = (): void => {
     setCreateDialogStatus(true);
   };
   const createClickHandler = () => {
-    selectProductCategory(undefined);
+    selectProduct(undefined);
     openCreateItemDialog();
   };
-  const updateItem = (category: ICategory) => {
-    selectProductCategory(category);
+  const updateItem = (product: IProduct) => {
+    selectProduct(product);
     openCreateItemDialog();
   };
-  const deleteItem = (categoryId?: string) => {
-    if (!categoryId) return;
-    fetch(`http://localhost:3000/api/product-categories/${categoryId}`, {
+  const deleteItem = (productId?: string) => {
+    if (!productId) return;
+    fetch(`http://localhost:3000/api/product-categories/${productId}`, {
       method: "delete",
     }).then((res) => {
-      if (res.ok) setProductCategories(productCategories.filter((x) => x.categoryId !== categoryId));
+      if (res.ok) setProducts(products.filter((x) => x.productId !== productId));
     });
   };
   const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!selectedProductCategory) return;
-    if (selectedProductCategory.categoryId) {
-      const formData = serialize(selectedProductCategory, { indices: true, nullsAsUndefineds: true });
-      fetch(`http://localhost:3000/api/product-categories/${selectedProductCategory.categoryId}`, {
+    if (!selectedProduct) return;
+    if (selectedProduct.productId) {
+      const formData = serialize(selectedProduct, { indices: true, nullsAsUndefineds: true });
+      fetch(`http://localhost:3000/api/products/${selectedProduct.productId}`, {
         method: "put",
         body: formData,
       })
@@ -51,15 +46,15 @@ const ProductCategoriesPage = () => {
         })
         .then((text) => {
           if (text) {
-            const updateCategory = JSON.parse(text) as unknown as ICategory;
+            const updateCategory = JSON.parse(text) as unknown as IProduct;
             setCreateDialogStatus(false);
-            setProductCategories(productCategories.map((x) => (x.categoryId === updateCategory.categoryId ? updateCategory : x)));
+            setProducts(products.map((x) => (x.productId === updateCategory.productId ? updateCategory : x)));
             return updateCategory;
           }
         });
     } else {
-      const formData = serialize(selectedProductCategory, { indices: true, nullsAsUndefineds: true });
-      fetch("http://localhost:3000/api/product-categories", {
+      const formData = serialize(selectedProduct, { indices: true, nullsAsUndefineds: true });
+      fetch("http://localhost:3000/api/products", {
         method: "post",
         body: formData,
       })
@@ -68,10 +63,10 @@ const ProductCategoriesPage = () => {
         })
         .then((text) => {
           if (text) {
-            const newCategory = JSON.parse(text) as unknown as ICategory;
+            const newProduct = JSON.parse(text) as unknown as IProduct;
             setCreateDialogStatus(false);
-            setProductCategories([...productCategories, newCategory]);
-            return newCategory;
+            setProducts([...products, newProduct]);
+            return newProduct;
           }
         });
     }
@@ -95,54 +90,72 @@ const ProductCategoriesPage = () => {
             <th className="border border-slate-600 px-2 py-1"></th>
             <th className="border border-slate-600 px-2 py-1">Id</th>
             <th className="border border-slate-600 px-2 py-1">Name</th>
-            <th className="border border-slate-600 px-2 py-1">Image Url</th>
+            <th className="border border-slate-600 px-2 py-1">Product Code</th>
+            <th className="border border-slate-600 px-2 py-1">Price</th>
+            <th className="border border-slate-600 px-2 py-1">Image Src</th>
             <th className="border border-slate-600 px-2 py-1">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {productCategories.map((category) => (
-            <tr key={category.categoryId}>
+          {products.map((product) => (
+            <tr key={product.productId}>
               <td className="border border-slate-600 p-2">
                 <div className="flex items-center">
                   <Checkbox />
                 </div>
               </td>
-              <td className="border border-slate-600 p-2">{category.categoryId}</td>
-              <td className="border border-slate-600 p-2">{category.name}</td>
-              <td className="border border-slate-600 p-2">{category.imageUrl}</td>
+              <td className="border border-slate-600 p-2">{product.productId}</td>
+              <td className="border border-slate-600 p-2">{product.name}</td>
+              <td className="border border-slate-600 p-2">{product.productCode}</td>
+              <td className="border border-slate-600 p-2">{product.price}</td>
+              <td className="border border-slate-600 p-2">{product.imageSrc}</td>
               <td className="border border-slate-600 p-2">
                 <FontAwesomeIcon
                   className="inline-block cursor-pointer hover:text-blue-800"
                   icon={faPenToSquare}
                   width={40}
-                  onClick={() => updateItem(category)}
+                  onClick={() => updateItem(product)}
                 />
                 <FontAwesomeIcon
                   className="inline-block cursor-pointer hover:text-blue-800"
                   icon={faTrashCan}
                   width={40}
-                  onClick={() => deleteItem(category.categoryId)}
+                  onClick={() => deleteItem(product.productId)}
                 />
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Modal key={selectedProductCategory?.categoryId} show={showCreateDialog} onClose={() => setCreateDialogStatus(false)} title="">
+      <Modal key={selectedProduct?.productId} show={showCreateDialog} onClose={() => setCreateDialogStatus(false)} title="">
         <form className="max-w-md mx-auto">
-          <FormInput label="Id" type="text" placeholder="Auto Generated" value={selectedProductCategory?.categoryId} disabled />
+          <FormInput label="Id" type="text" placeholder="Auto Generated" value={selectedProduct?.productId} disabled />
           <FormInput
             label="Name"
             type="text"
             placeholder="Name"
-            value={selectedProductCategory?.name}
-            onChange={(e) => selectProductCategory({ ...selectedProductCategory, name: e.target.value })}
+            value={selectedProduct?.name}
+            onChange={(e) => selectProduct({ ...selectedProduct, name: e.target.value })}
+          />
+          <FormInput
+            label="Product Code"
+            type="text"
+            placeholder="Product Code"
+            value={selectedProduct?.productCode}
+            onChange={(e) => selectProduct({ ...selectedProduct, productCode: e.target.value })}
+          />
+          <FormInput
+            label="Price"
+            type="text"
+            placeholder="Price"
+            value={selectedProduct?.price}
+            onChange={(e) => selectProduct({ ...selectedProduct, price: e.target.value })}
           />
           <FormInput
             label="Image"
             type="file"
             placeholder="Image"
-            onChange={(e) => selectProductCategory({ ...selectedProductCategory, image: e.target.files?.[0] })}
+            onChange={(e) => selectProduct({ ...selectedProduct, _image: e.target.files?.[0] })}
           />
           <div className="w-full px-3 mb-6">
             <button
@@ -158,4 +171,4 @@ const ProductCategoriesPage = () => {
   );
 };
 
-export default ProductCategoriesPage;
+export default ProductsPage;

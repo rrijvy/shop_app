@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import CartDropdown from "./cartDropdown";
+import Cart from "./cart";
+import { ICartItem } from "@/models/ICartItem";
 
 const NavigatonBar = () => {
   const [showCartPopover, setCartPopoverStatus] = useState(false);
@@ -13,6 +14,97 @@ const NavigatonBar = () => {
   const changeCartPopoverStatus = () => {
     setCartPopoverStatus(!showCartPopover);
   };
+
+  const cartItems: Array<ICartItem> = [
+    {
+      cartItemId: "1",
+      productId: "",
+      name: "Throwback Hip Bag",
+      href: "#",
+      color: "Salmon",
+      price: "$90.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
+      imageAlt: "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
+    },
+    {
+      cartItemId: "2",
+      productId: "",
+      name: "Medium Stuff Satchel",
+      href: "#",
+      color: "Blue",
+      price: "$32.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      imageAlt: "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+    },
+    {
+      cartItemId: "2",
+      productId: "",
+      name: "Medium Stuff Satchel",
+      href: "#",
+      color: "Blue",
+      price: "$32.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      imageAlt: "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+    },
+    {
+      cartItemId: "2",
+      productId: "",
+      name: "Medium Stuff Satchel",
+      href: "#",
+      color: "Blue",
+      price: "$32.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      imageAlt: "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+    },
+    {
+      cartItemId: "2",
+      productId: "",
+      name: "Medium Stuff Satchel",
+      href: "#",
+      color: "Blue",
+      price: "$32.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      imageAlt: "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+    },
+    {
+      cartItemId: "2",
+      productId: "",
+      name: "Medium Stuff Satchel",
+      href: "#",
+      color: "Blue",
+      price: "$32.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      imageAlt: "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+    },
+    {
+      cartItemId: "2",
+      productId: "",
+      name: "Medium Stuff Satchel",
+      href: "#",
+      color: "Blue",
+      price: "$32.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      imageAlt: "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+    },
+    {
+      cartItemId: "2",
+      productId: "",
+      name: "Medium Stuff Satchel",
+      href: "#",
+      color: "Blue",
+      price: "$32.00",
+      quantity: 1,
+      imageSrc: "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
+      imageAlt: "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
+    },
+  ];
 
   return (
     <header>
@@ -29,7 +121,7 @@ const NavigatonBar = () => {
                 <span>SHOP</span>
               </div>
             </Link>
-            <Link href="/contactUs">
+            <Link href="/contactus">
               <div className="navbar-menu-ul-li">
                 <span>CONTACT US</span>
               </div>
@@ -50,7 +142,7 @@ const NavigatonBar = () => {
           </div>
         </div>
       </div>
-      <CartDropdown show={showCartPopover} cartItems={[]} />
+      <Cart show={showCartPopover} onClose={() => setCartPopoverStatus(false)} products={cartItems} />
     </header>
   );
 };
