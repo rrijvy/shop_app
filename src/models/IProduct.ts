@@ -7,5 +7,5 @@ export interface IProduct {
   imageSrc?: string;
   imageAlt?: string;
   href?: string;
-  _image?: File
+  image?: File;
 }

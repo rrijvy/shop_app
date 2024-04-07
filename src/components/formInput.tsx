@@ -7,6 +7,7 @@ const FormInput = (props: {
   type?: HTMLInputTypeAttribute;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
+  readonly?: boolean;
 }) => {
   return (
     <div className="w-full px-3 mb-6">
@@ -18,6 +19,7 @@ const FormInput = (props: {
         value={props.value}
         onChange={props.onChange}
         disabled={props.disabled}
+        readOnly={props.readonly}
       />
     </div>
   );

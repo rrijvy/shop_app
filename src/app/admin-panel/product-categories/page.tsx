@@ -39,8 +39,7 @@ const ProductCategoriesPage = () => {
   };
   const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!selectedProductCategory) return;
-    if (selectedProductCategory.categoryId) {
+    if (selectedProductCategory?.categoryId) {
       const formData = serialize(selectedProductCategory, { indices: true, nullsAsUndefineds: true });
       fetch(`http://localhost:3000/api/product-categories/${selectedProductCategory.categoryId}`, {
         method: "put",
@@ -130,7 +129,15 @@ const ProductCategoriesPage = () => {
       </table>
       <Modal key={selectedProductCategory?.categoryId} show={showCreateDialog} onClose={() => setCreateDialogStatus(false)} title="">
         <form className="max-w-md mx-auto">
-          <FormInput label="Id" type="text" placeholder="Auto Generated" value={selectedProductCategory?.categoryId} disabled />
+          <FormInput
+            label="Id"
+            type="text"
+            placeholder="Auto Generated"
+            value={selectedProductCategory?.categoryId}
+            onChange={() => {}}
+            disabled
+            readonly
+          />
           <FormInput
             label="Name"
             type="text"

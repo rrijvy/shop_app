@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { IProduct } from "@/models/IProduct";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,11 @@ const ProductsPage = () => {
   const [products, setProducts] = useState<Array<IProduct>>([]);
   const [selectedProduct, selectProduct] = useState<IProduct>();
   const [showCreateDialog, setCreateDialogStatus] = useState<boolean>(false);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products", { method: "get" })
+      .then((res) => res.json())
+      .then((obj) => setProducts(obj));
+  }, []);
   const openCreateItemDialog = (): void => {
     setCreateDialogStatus(true);
   };
@@ -34,8 +39,7 @@ const ProductsPage = () => {
   };
   const submitForm = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!selectedProduct) return;
-    if (selectedProduct.productId) {
+    if (selectedProduct?.productId) {
       const formData = serialize(selectedProduct, { indices: true, nullsAsUndefineds: true });
       fetch(`http://localhost:3000/api/products/${selectedProduct.productId}`, {
         method: "put",
@@ -129,7 +133,15 @@ const ProductsPage = () => {
       </table>
       <Modal key={selectedProduct?.productId} show={showCreateDialog} onClose={() => setCreateDialogStatus(false)} title="">
         <form className="max-w-md mx-auto">
-          <FormInput label="Id" type="text" placeholder="Auto Generated" value={selectedProduct?.productId} disabled />
+          <FormInput
+            label="Id"
+            type="text"
+            placeholder="Auto Generated"
+            value={selectedProduct?.productId}
+            onChange={() => {}}
+            disabled
+            readonly
+          />
           <FormInput
             label="Name"
             type="text"
@@ -155,7 +167,7 @@ const ProductsPage = () => {
             label="Image"
             type="file"
             placeholder="Image"
-            onChange={(e) => selectProduct({ ...selectedProduct, _image: e.target.files?.[0] })}
+            onChange={(e) => selectProduct({ ...selectedProduct, image: e.target.files?.[0] })}
           />
           <div className="w-full px-3 mb-6">
             <button

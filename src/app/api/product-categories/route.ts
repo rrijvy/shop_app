@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 import { resolve } from "path";
 
 export async function GET() {
-  const categoryCollection = new ProductCategoryCollection();
-  const productCategories = await categoryCollection.all();
+  const collection = new ProductCategoryCollection();
+  const productCategories = await collection.all();
   return NextResponse.json(productCategories);
 }
 
