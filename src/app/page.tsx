@@ -1,17 +1,18 @@
 import MenuItem from "@/components/menuItem";
 import NavigatonBar from "@/components/navigatonBar";
-import ProductCategoryCollection from "@/libs/mongo/collections/productCategory";
+import { HttpClient } from "@/libs/utils/httpClient";
+import { ICategory } from "@/models/ICategory";
 
 export default async function Home() {
-  const categoryCollection = new ProductCategoryCollection();
-  const productCategories = await categoryCollection.all();
-
+  const productCategoriesReponse = await HttpClient.get<Array<ICategory>>("http://localhost:3000/api/product-categories", {
+    method: "get",
+  });
   return (
     <>
       <NavigatonBar />
       <div className="homepage">
         <div className="directory-menu">
-          {productCategories.map((category) => (
+          {productCategoriesReponse.response?.map((category) => (
             <MenuItem key={category.categoryId} category={category} />
           ))}
         </div>
