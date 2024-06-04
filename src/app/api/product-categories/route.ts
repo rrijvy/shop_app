@@ -7,6 +7,20 @@ import { resolve } from "path";
 export async function GET() {
   const collection = new ProductCategoryCollection();
   const productCategories = await collection.all();
+  if (Array.isArray(productCategories) && productCategories.length <= 0) {
+    const categoryCollection = new ProductCategoryCollection();
+    const newCategories: Array<ICategory> = [
+      { name: "Male", imageUrl: "./images/mens-clothing.jpg" },
+      { name: "Female", imageUrl: "./images/womens-clothing.jpg" },
+      { name: "Kids", imageUrl: "./images/kids-clothing.jpg" },
+      { name: "Winter", imageUrl: "./images/winter-collections.png" },
+      { name: "Sports", imageUrl: "./images/sports-clothing.jpg" },
+      { name: "Best Seller", imageUrl: "./images/best-seller.jpg" },
+    ];
+    const result = await categoryCollection.insertMany(newCategories);
+    const response = await collection.all();
+    return NextResponse.json(response);
+  }
   return NextResponse.json(productCategories);
 }
 
